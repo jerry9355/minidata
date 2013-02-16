@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!--****************************** -->
+	<!-- console define -->
+	<!--****************************** -->
+	<appender name="CONSOLE" class="org.apache.log4j.ConsoleAppender">
+		<param name="Threshold" value="debug" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%d{dd HH:mm:ss} %-5p] [%t] %c (line : %L) - %m%n" />
+		</layout>
+	</appender>
+
+	<!--****************************** -->
+	<!-- log file define -->
+	<!--****************************** -->
+
+	<appender name="ERROR-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="encoding" value="UTF-8" />
+		<param name="File" value="/log/dfl/error.log" />
+		<param name="Threshold" value="error" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss} %c%n%m%n" />
+		</layout>
+	</appender>
+
+	<appender name="ALL-APPENDER" class="org.apache.log4j.DailyRollingFileAppender">
+		<param name="encoding" value="UTF-8" />
+		<param name="File" value="/log/dfl/all.log" />
+		<param name="DatePattern" value="'.'yyyy-MM-dd" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="[%-5p] %d{yyyy-MM-dd HH:mm:ss} %c%n%m%n" />
+		</layout>
+	</appender>
+
+	<!--****************************** -->
+	<!-- dispatch to the log file -->
+	<!--****************************** -->
+
+	<!--****************************** -->
+	<!-- the root set -->
+	<!--****************************** -->
+	<root>
+		<level value="INFO" />
+		<appender-ref ref="CONSOLE" />
+<!-- 		<appender-ref ref="ALL-APPENDER"/> -->
+<!-- 		<appender-ref ref="ERROR-APPENDER"/> -->
+	</root>
+
+</log4j:configuration>
