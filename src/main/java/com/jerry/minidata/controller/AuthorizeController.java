@@ -23,8 +23,12 @@ public class AuthorizeController {
 	private static final Logger logger = LoggerFactory.getLogger(AuthorizeController.class);
 	
 	@RequestMapping(value = "/index.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String index(@RequestParam(value="signed_request", required=false) String sign, ModelMap model, HttpSession session) {
+	public String index(@RequestParam(value="signed_request", required=false) String sign, ModelMap model,
+			HttpSession session) {
 		String token = decodeSignCode(sign);
+		if (token == null) {
+			return "authorize";
+		}
 		String sessionId = session.getId();
 		
 		//将token存入session中
