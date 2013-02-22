@@ -15,16 +15,25 @@ import org.springframework.web.bind.annotation.RequestParam;
 import sun.misc.BASE64Decoder;
 import weibo4j.org.json.JSONObject;
 
+/**
+ * 用于用户授权应用
+ * 
+ * @author Jerry Weng
+ * @since 2013-2-22
+ */
 @Controller
 public class AuthorizeController {
 	/**
 	 * Logger for this class
 	 */
-	private static final Logger logger = LoggerFactory.getLogger(AuthorizeController.class);
+	private static final Logger logger = LoggerFactory.
+			getLogger(AuthorizeController.class);
 	
-	@RequestMapping(value = "/index.do", method = { RequestMethod.GET, RequestMethod.POST })
-	public String index(@RequestParam(value="signed_request", required=false) String sign, ModelMap model,
-			HttpSession session) {
+	@RequestMapping(value = "/index.do", method =
+		{ RequestMethod.GET, RequestMethod.POST })
+	public String index(
+			@RequestParam(value = "signed_request", required = false) String sign,
+			ModelMap model, HttpSession session) {
 		String token = decodeSignCode(sign);
 		if (token == null) {
 			return "authorize";
