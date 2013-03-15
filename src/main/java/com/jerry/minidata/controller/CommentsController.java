@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jerry.minidata.pojo.UserCount;
 import com.jerry.minidata.service.CommentsService;
 /**
  * 获取用户评论方面的数据
@@ -35,17 +36,35 @@ public class CommentsController {
 	@RequestMapping(value = "getCommentsToMe.do", 
 			method = {RequestMethod.GET, RequestMethod.POST})
 	@ResponseBody
-	public Map<String, Map.Entry<String, Integer>> getCommentsToMe(
+	public Map<String, UserCount> getCommentsToMe(
 			HttpSession session) {
 		String token = session.getAttribute("token").toString();
-		ArrayList<Map.Entry<String, Integer>> list = commentsService
+		
+		ArrayList<Map.Entry<String, UserCount>> list = commentsService
 				.getCommentsToMe(token);
-		Map<String, Map.Entry<String, Integer>> map 
-				= new HashMap<String, Map.Entry<String, Integer>>(3);
-		map.put("first", list.get(0));
-		map.put("second", list.get(1));
-		map.put("third", list.get(2));
+		Map<String, UserCount> map 
+				= new HashMap<String, UserCount>(3);
+		
+		map.put("first", list.get(0).getValue());
+		map.put("second", list.get(1).getValue());
+		map.put("third", list.get(2).getValue());
 		return map;
 	}
+	
+	@RequestMapping(value = "getMentions.do", 
+			method = {RequestMethod.GET, RequestMethod.POST})
+	@ResponseBody
+	public Map<String, UserCount> getMentions(
+			HttpSession session) {
+		String token = session.getAttribute("token").toString();
+		ArrayList<Map.Entry<String, UserCount>> list = commentsService
+				.getMentions(token);
+		Map<String, UserCount> map 
+				= new HashMap<String, UserCount>(3);
+		map.put("first", list.get(0).getValue());
+		map.put("second", list.get(1).getValue());
+		map.put("third", list.get(2).getValue());
+		return map;
+	} 
 
 }
